@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>jianli</title>
+      <link href="/2020/04/26/jianli/"/>
+      <url>/2020/04/26/jianli/</url>
+      
+        <content type="html"><![CDATA[<h2 id="项目经验"><a href="#项目经验" class="headerlink" title="项目经验"></a>项目经验</h2><h3 id="胖吴货栈小程序"><a href="#胖吴货栈小程序" class="headerlink" title="胖吴货栈小程序"></a>胖吴货栈小程序</h3><p>项目背景：2017年微信正式发布时，公司决定将公众号上的项目迁移到小程序上。早期的小程序框架比较不成熟，所以选择了使用微信提供的原生能力去实现。<br>1、担任项目的PM和主开发，负责整体技术架构设计和主要开发工作，推动项目正常上线。<br>2、在小程序框架的基础上，实现了computed以及watch能力，弥补了早期小程序不支持这两功能的痛点。<br>3、集成了手写的eventbus，解决了一些场景下频繁在onshow的生命周期中去处理。<br>4、将微信提供API进行了一层简单promise的封装，让其支持promis的调用方式。</p><h3 id="优之派后台管理系统"><a href="#优之派后台管理系统" class="headerlink" title="优之派后台管理系统"></a>优之派后台管理系统</h3><p>项目背景：公司针对C端电商的一个后台管理系统。早期接手这项目主要是在原有的基础上进行维护与迭代</p><h2 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h2><p>1、熟练掌握HTML+CSS的布局方式，flex布局方式有着大量实践经验，熟悉常用的css3新特性。<br>2、JavaScript基础扎实，ES6语法有着大量的实践经验。<br>3、熟悉Vue、React、jQuery框架，深入了解过Vue原理，阅读解析过Vue的源码。<br>4、对微信小程序有着丰富的实践经验。<br>5、了解sass、less等css辅助工具。<br>6、简单的阅读过node的官方文档，了解一些基本知识，平时会借助node去</p><p>熟悉HTML+CSS布局，了解HTML5新标签，熟练掌握flex布局以及常熟css3的一些新特性<br>JavaScript基础扎实，熟练掌握es6语法的使用<br>掌握vue、react、jQuery框架，了解过一些底层原理<br>熟练掌握微信小程序的开发<br>了解sass、less等css辅助工具<br>了解gulp、webpack等模块打包工具<br>掌握一定的node知识，了解一些基本的服务端知识</p><p>JavaScript+CSS+HTML基础扎实，熟悉ES6/ES7新特性，掌握Vue+Vuex+Vue-Router全家桶，熟悉Element-UI/iView</p><p>工作描述</p><p>担任微信小程序项目的PM和主开发，负责前端的整体技术架构和主要工作，推动项目正常上线。负责公司的后台管理系统的迭代，以及使用vue进行重构提升效率。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>微信小程序本地存储超过10M后如何清除</title>
+      <link href="/2020/04/08/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%E8%B6%85%E8%BF%8710M%E5%90%8E%E5%A6%82%E4%BD%95%E6%B8%85%E9%99%A4/"/>
+      <url>/2020/04/08/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%E8%B6%85%E8%BF%8710M%E5%90%8E%E5%A6%82%E4%BD%95%E6%B8%85%E9%99%A4/</url>
+      
+        <content type="html"><![CDATA[<hr><p>小程序生成分享图报了个错：writeFile:fail the maximum size of the file storage limit is exceeded，经排查是因为小程序端会将二维码保存在本地文件，小程序限制了本地文件的存储大小 10m<br>网上查找一方 只有解决saveFile:fail the maximum size of the file storage limit is exceeded 这个错误的 </p><h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">wx.getSavedFileList(&#123;  // 获取文件列表</span><br><span class="line">    success(res) &#123;</span><br><span class="line">        // 遍历文件列表里的数据</span><br><span class="line">        res.fileList.forEach((val, key) =&gt; &#123;</span><br><span class="line">            // 删除存储的垃圾数据</span><br><span class="line">            wx.removeSavedFile(&#123;</span><br><span class="line">            filePath: val.filePath</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>因为我们是通过writeFile方法去写入的 所以上面这个方法是不适用的，后面发现一个方法是这两种报错都适用的</p><h3 id="代码如下-1"><a href="#代码如下-1" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const fsm = wx.getFileSystemManager(); // 获取全局唯一的文件管理器</span><br><span class="line">const basepath = wx.env.USER_DATA_PATH; // 文件系统中的用户目录路径</span><br><span class="line">fsm.readdir(&#123;</span><br><span class="line">  dirPath: basepath, // 获取文件列表</span><br><span class="line">  success(res) &#123;</span><br><span class="line">    res.files.forEach((val) =&gt; &#123; </span><br><span class="line">      // 遍历文件列表里的数据做删除</span><br><span class="line">      fsm.unlink(&#123;</span><br><span class="line">        filePath: basepath + &apos;/&apos; + val</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 小程序 </category>
+          
+          <category> 解决方案 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 小程序 </tag>
+            
+            <tag> 问题 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>学习材料整理</title>
+      <link href="/2020/03/18/%E5%AD%A6%E4%B9%A0%E6%9D%90%E6%96%99%E6%95%B4%E7%90%86/"/>
+      <url>/2020/03/18/%E5%AD%A6%E4%B9%A0%E6%9D%90%E6%96%99%E6%95%B4%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://ustbhuangyi.github.io/vue-analysis/v2/data-driven/mounted.html" target="_blank" rel="noopener">Vue源码解析电子书</a><br><a href="https://www.cnblogs.com/wonyun/p/11168698.html" target="_blank" rel="noopener">从微信小程序开发者工具源码看实现原理（一）- - 小程序架构设计</a><br><a href="https://www.cnblogs.com/wonyun/p/11176762.html" target="_blank" rel="noopener">从微信小程序开发者工具源码看实现原理（二）- - 小程序技术实现</a><br><a href="https://www.cnblogs.com/wonyun/p/10997800.html" target="_blank" rel="noopener">从微信小程序开发者工具源码看实现原理（三）- - 双线程通信</a><br><a href="https://www.cnblogs.com/wonyun/p/11195157.html" target="_blank" rel="noopener">从微信小程序开发者工具源码看实现原理（四）- - 自适应布局</a><br><a href="https://www.cnblogs.com/bldxh/p/6857324.html" target="_blank" rel="noopener">Performance — 前端性能监控利器</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+          <category> 材料 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> 学习 </tag>
+            
+            <tag> 整理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>面试归纳总结</title>
+      <link href="/2020/03/13/%E9%9D%A2%E8%AF%95%E5%BD%92%E7%BA%B3%E6%80%BB%E7%BB%93/"/>
+      <url>/2020/03/13/%E9%9D%A2%E8%AF%95%E5%BD%92%E7%BA%B3%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://juejin.im/post/5e649e3e5188252c06113021" target="_blank" rel="noopener">「面试题」20+Vue面试题整理</a><br><a href="https://juejin.im/post/5e6a1f406fb9a07cae13781e" target="_blank" rel="noopener">全面分析总结JS内存模型</a><br><a href="https://juejin.im/post/5e5c65fc6fb9a07cd00d8838" target="_blank" rel="noopener">4W字长文带你深度解锁Webpack系列(基础篇)</a><br><a href="https://juejin.im/post/5e6518946fb9a07c820fbaaf" target="_blank" rel="noopener">4W字长文带你深度解锁Webpack系列(进阶篇)</a><br><a href="https://juejin.im/post/5e6cfdc85188254913107c1f" target="_blank" rel="noopener">4W字长文带你深度解锁Webpack系列(优化篇)</a><br><a href="https://segmentfault.com/a/1190000011145364" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> 面试 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数组去重</title>
+      <link href="/2019/12/26/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/"/>
+      <url>/2019/12/26/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/</url>
+      
+        <content type="html"><![CDATA[<h2 id="数组去重常用的几种方法"><a href="#数组去重常用的几种方法" class="headerlink" title="数组去重常用的几种方法"></a>数组去重常用的几种方法</h2><h3 id="双层for循环"><a href="#双层for循环" class="headerlink" title="双层for循环"></a>双层for循环</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function fn(arr) &#123;</span><br><span class="line">    for(let i = 0, len = arr.length; i &lt; len; i++) &#123;</span><br><span class="line">        for(let j = i +1; j &lt; len; j++) &#123;</span><br><span class="line">            if(arr[i] === arr[j]) &#123;</span><br><span class="line">                arr.splice(j, 1);</span><br><span class="line">                len--;</span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="filter-include"><a href="#filter-include" class="headerlink" title="filter + include"></a>filter + include</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function fn(arr) &#123;</span><br><span class="line">    return arr.filter((item, index) =&gt; &#123;</span><br><span class="line">        return arr.indexOf(item) === index;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function fn(arr) &#123;</span><br><span class="line">    return arr.reducer((prv, item) =&gt; &#123;</span><br><span class="line">        if(!prv.includes(item)) &#123;</span><br><span class="line">            return prv.concat(item)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return prv;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, [])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="ES6-Set方法"><a href="#ES6-Set方法" class="headerlink" title="ES6 Set方法"></a>ES6 Set方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function fn(arr) &#123;</span><br><span class="line">    return [...new Set(arr)]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Objet健值配对"><a href="#Objet健值配对" class="headerlink" title="Objet健值配对"></a>Objet健值配对</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function fn(arr) &#123;</span><br><span class="line">    let objet = &#123;&#125;</span><br><span class="line">    arr.filter((item) =&gt; &#123;</span><br><span class="line">        return obj.hasOwnProperty(typeof item + item) ? false : (object(typeof item + item) = true)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数组 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> 数组 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ES6总结(一)----let,const</title>
+      <link href="/2019/05/13/S6%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+      <url>/2019/05/13/S6%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<h2 id="let-和-const-命令"><a href="#let-和-const-命令" class="headerlink" title="let 和 const 命令"></a>let 和 const 命令</h2><h3 id="let命令"><a href="#let命令" class="headerlink" title="let命令"></a>let命令</h3><p>let声明的变量只在所在的代码块内有效，解决了var声明变量带来的变量提升。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(let i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">// ...</span><br><span class="line">&#125;</span><br><span class="line">console.log(i);</span><br><span class="line">// ReferenceError: i is not defined</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(var i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">// ...</span><br><span class="line">&#125;</span><br><span class="line">console.log(i);</span><br><span class="line">10</span><br></pre></td></tr></table></figure><p>ES6规定，区块中存在let或const声明变量，在声明前使用这些变量，就会报错。不允许在相同的作用域内，重复声明同一个变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 报错</span><br><span class="line">function func() &#123;</span><br><span class="line">let a= 10; </span><br><span class="line">   let a = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h3 id="const命令"><a href="#const命令" class="headerlink" title="const命令"></a>const命令</h3><p>const声明的变量不可改变值，一旦用const声明变量必须立即赋值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const foo; </span><br><span class="line">// SyntaxError: Missing initializer in const declaration</span><br></pre></td></tr></table></figure></p><p>const声明的变量也不会带来变量提升<br>const保证的并不是变量的值不能改变，而是变量指向的那个内存地址做所保存的数据不能改动。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const foo = &#123;&#125;</span><br><span class="line">// 这样子是可以修改的</span><br><span class="line">foo.prop = 123;</span><br><span class="line">// 报错</span><br><span class="line">foo = &#123;&#125;;</span><br></pre></td></tr></table></figure></p><p><strong>let,cont,class命令声明的全局变量，不属于顶层对象的属性</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var a = 1;</span><br><span class="line">// 如果在 Node 的 REPL 环境，可以写成 global.a</span><br><span class="line">// 或者采用通用方法，写成 this.a</span><br><span class="line">window.a // 1</span><br><span class="line"></span><br><span class="line">let b = 1;</span><br><span class="line">window.b // undefined</span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 总结 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ES6 </tag>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Markdown基本语法</title>
+      <link href="/2019/05/09/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/"/>
+      <url>/2019/05/09/Markdown%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p><strong>标题</strong></p><h1 id="这是一级标题"><a href="#这是一级标题" class="headerlink" title="#这是一级标题"></a>#这是一级标题</h1><h2 id="这是二级标题"><a href="#这是二级标题" class="headerlink" title="##这是二级标题"></a>##这是二级标题</h2><h3 id="这是三级标题"><a href="#这是三级标题" class="headerlink" title="###这是三级标题"></a>###这是三级标题</h3><h4 id="以此类推"><a href="#以此类推" class="headerlink" title="以此类推"></a>以此类推</h4><hr><p><strong>字体效果</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line">**这是加粗的文字**</span><br><span class="line">*这是倾斜的文字*`</span><br><span class="line">***这是斜体加粗的文字***</span><br><span class="line">~~这是加删除线的文字~~</span><br></pre></td></tr></table></figure></p><p>效果如下</p><p>   <strong>这是加粗的文字</strong></p><p>   <em>这是倾斜的文字</em></p><p>   <strong><em>这是斜体加粗的文字</em></strong></p><p>   <del>这是加删除线的文字</del></p><hr><p><strong>图片</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  ![图片alt](图片地址 &apos;&apos;图片title&apos;&apos;)</span><br><span class="line">  图片alt就是显示在图片下面的文字，相当于对图片内容的解释。</span><br><span class="line">  图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</span><br><span class="line">  示例：</span><br><span class="line">  ![blockchain](https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/</span><br><span class="line">u=702257389,1274025419&amp;fm=27&amp;gp=0.jpg &quot;区块链&quot;)</span><br></pre></td></tr></table></figure></p><p><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=702257389,1274025419&amp;fm=27&amp;gp=0.jpg" alt="blockchain" title="区块链"></p><hr><p><strong>超链接</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[超链接名]（超链接地址）</span><br></pre></td></tr></table></figure><p>效果如下</p><p><a href="https://690266211.github.io/">我的博客</a></p><hr><p><strong>无序列表</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-+*任意一种</span><br><span class="line">  注意：- + * 跟内容之间都要有一个空格</span><br><span class="line">   - 列表内容1</span><br><span class="line">   + 列表内容2</span><br><span class="line">   * 列表内容3</span><br></pre></td></tr></table></figure><ul><li>列表内容1</li></ul><ul><li>列表内容2</li></ul><ul><li>列表内容3</li></ul><hr><p><strong>有序列表</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数字加点</span><br><span class="line">注意：序号跟内容之间要有空格</span><br><span class="line"> 1.列表内容</span><br><span class="line"> 2.列表内容</span><br><span class="line"> 3.列表内容</span><br></pre></td></tr></table></figure><p>1.列表内容<br>2.列表内容<br>3.列表内容</p><hr><p><strong>表格</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br><span class="line"></span><br><span class="line">第二行分割表头和内容。</span><br><span class="line">- 有一个就行，为了对齐，多加了几个</span><br><span class="line">文字默认居左</span><br><span class="line">-两边加：表示文字居中</span><br><span class="line">-右边加：表示文字居右</span><br><span class="line">注：原生的语法两边都要用 | 包起来。此处省略</span><br><span class="line">示例：</span><br><span class="line">姓名|技能|排行</span><br><span class="line">--|:--:|--:</span><br><span class="line">刘备|哭|大哥</span><br><span class="line">关羽|打|二哥</span><br><span class="line">张飞|骂|三弟</span><br></pre></td></tr></table></figure></p><table><thead><tr><th>姓名</th><th style="text-align:center">技能</th><th style="text-align:right">排行</th></tr></thead><tbody><tr><td>刘备</td><td style="text-align:center">哭</td><td style="text-align:right">大哥</td></tr><tr><td>关羽</td><td style="text-align:center">打</td><td style="text-align:right">二哥</td></tr><tr><td>张飞</td><td style="text-align:center">骂</td><td style="text-align:right">三弟</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> 笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 语法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2019/05/07/hello-world/"/>
+      <url>/2019/05/07/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Hello </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hello World </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
