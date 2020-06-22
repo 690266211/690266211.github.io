@@ -4,19 +4,6 @@
   
     
     <entry>
-      <title>jianli</title>
-      <link href="/2020/04/26/jianli/"/>
-      <url>/2020/04/26/jianli/</url>
-      
-        <content type="html"><![CDATA[<h2 id="项目经验"><a href="#项目经验" class="headerlink" title="项目经验"></a>项目经验</h2><h3 id="胖吴货栈小程序"><a href="#胖吴货栈小程序" class="headerlink" title="胖吴货栈小程序"></a>胖吴货栈小程序</h3><p>项目背景：2017年微信正式发布时，公司决定将公众号上的项目迁移到小程序上。早期的小程序框架比较不成熟，所以选择了使用微信提供的原生能力去实现。<br>1、担任项目的PM和主开发，负责整体技术架构设计和主要开发工作，推动项目正常上线。<br>2、在小程序框架的基础上，实现了computed以及watch能力，弥补了早期小程序不支持这两功能的痛点。<br>3、集成了手写的eventbus，解决了一些场景下频繁在onshow的生命周期中去处理。<br>4、将微信提供API进行了一层简单promise的封装，让其支持promis的调用方式。</p><h3 id="优之派后台管理系统"><a href="#优之派后台管理系统" class="headerlink" title="优之派后台管理系统"></a>优之派后台管理系统</h3><p>项目背景：公司针对C端电商的一个后台管理系统。早期接手这项目主要是在原有的基础上进行维护与迭代</p><h2 id="专业技能"><a href="#专业技能" class="headerlink" title="专业技能"></a>专业技能</h2><p>1、熟练掌握HTML+CSS的布局方式，flex布局方式有着大量实践经验，熟悉常用的css3新特性。<br>2、JavaScript基础扎实，ES6语法有着大量的实践经验。<br>3、熟悉Vue、React、jQuery框架，深入了解过Vue原理，阅读解析过Vue的源码。<br>4、对微信小程序有着丰富的实践经验。<br>5、了解sass、less等css辅助工具。<br>6、简单的阅读过node的官方文档，了解一些基本知识，平时会借助node去</p><p>熟悉HTML+CSS布局，了解HTML5新标签，熟练掌握flex布局以及常熟css3的一些新特性<br>JavaScript基础扎实，熟练掌握es6语法的使用<br>掌握vue、react、jQuery框架，了解过一些底层原理<br>熟练掌握微信小程序的开发<br>了解sass、less等css辅助工具<br>了解gulp、webpack等模块打包工具<br>掌握一定的node知识，了解一些基本的服务端知识</p><p>JavaScript+CSS+HTML基础扎实，熟悉ES6/ES7新特性，掌握Vue+Vuex+Vue-Router全家桶，熟悉Element-UI/iView</p><p>工作描述</p><p>担任微信小程序项目的PM和主开发，负责前端的整体技术架构和主要工作，推动项目正常上线。负责公司的后台管理系统的迭代，以及使用vue进行重构提升效率。</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>微信小程序本地存储超过10M后如何清除</title>
       <link href="/2020/04/08/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%E8%B6%85%E8%BF%8710M%E5%90%8E%E5%A6%82%E4%BD%95%E6%B8%85%E9%99%A4/"/>
       <url>/2020/04/08/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%E8%B6%85%E8%BF%8710M%E5%90%8E%E5%A6%82%E4%BD%95%E6%B8%85%E9%99%A4/</url>
